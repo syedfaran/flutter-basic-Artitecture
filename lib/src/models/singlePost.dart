@@ -1,19 +1,31 @@
+import 'package:equatable/equatable.dart';
 
-class SinglePostModel {
-  final int? userId;
-  final int? id;
-  final String? title;
-  final String? body;
+class SinglePost extends Equatable {
+  final int userId;
+  final int id;
+  final String title;
+  final String body;
 
-  SinglePostModel({this.userId, this.id, this.title, this.body});
+  SinglePost(this.userId, this.id, this.title, this.body);
+
+  @override
+  List<Object?> get props => [id, userId, title, body];
+}
+
+class SinglePostModel extends SinglePost {
+  SinglePostModel(
+      {required int userId,
+      required int id,
+      required String title,
+      required String body})
+      : super(userId, id, title, body);
 
   factory SinglePostModel.fromJson(Map<String, dynamic> json) {
     return SinglePostModel(
-        userId : json['userId'],
-        id : json['id'],
-        title : json['title'],
-        body : json['body'],
-    );
+        userId: json['userId'],
+        id: json['id'],
+        title: json['title'],
+        body: json['body']);
   }
 
   Map<String, dynamic> toJson() {

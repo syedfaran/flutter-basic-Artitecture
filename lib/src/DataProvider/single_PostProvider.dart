@@ -17,9 +17,9 @@ class PostProvider with ChangeNotifier{
     notifyListeners();
   }
 
-   Either<Failure, SinglePostModel>? _post;
-  Either<Failure, SinglePostModel> get  post=>_post!;
-  void _setPost(Either<Failure, SinglePostModel> post) {
+   Either<Failure, SinglePost>? _post;
+  Either<Failure, SinglePost> get  post=>_post!;
+  void _setPost(Either<Failure, SinglePost> post) {
     _post = post;
     notifyListeners();
   }

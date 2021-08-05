@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_arti/myApp.dart';
 import 'package:flutter_arti/src/shared.dart';
-import 'package:flutter_arti/src/DataProvider/postProvider.dart';
+import 'package:flutter_arti/src/DataProvider/single_PostProvider.dart';
 import 'package:flutter_arti/src/DataProvider/postSearchProvider.dart';
 import 'package:provider/provider.dart';
 

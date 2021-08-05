@@ -1,26 +1,22 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter_arti/src/models/singlePost.dart';
 import 'package:http/http.dart' as http;
-
 import '../shared.dart';
 
-abstract class AbsRemoteDataSource<T> {
+abstract class RemoteDataSource<T> {
   Future<T> getPost();
-  //Future<List<SinglePostModel>> getPostList();
   Future<T> searchPost(int number);
 }
 
-class RemoteDataSource extends AbsRemoteDataSource<SinglePostModel> {
+class RemoteDataSourceImp extends RemoteDataSource<SinglePostModel> {
   static const api = 'https://jsonplaceholder.typicode.com/posts/1';
 
   @override
   Future<SinglePostModel>  getPost()async{
     return _getPostFromUrl(api);
   }
-
-
 
   @override
   Future<SinglePostModel> searchPost(int number) {
@@ -31,14 +27,32 @@ class RemoteDataSource extends AbsRemoteDataSource<SinglePostModel> {
     try {
       http.Response response = await http.get(Uri.parse(url), headers: {
         'Content-Type': 'application/json',
-      });
+      }).timeout(Duration(seconds: 5));
       return SinglePostModel.fromJson(jsonDecode(response.body));
     } on SocketException {
-      throw Failure('No Internet connection 😑');
+      throw Failure('No Internet connection');
     } on HttpException {
-      throw Failure("Couldn't find the post 😱");
+      throw Failure("Couldn't find the post");
     } on FormatException {
-      throw Failure("Bad response format 👎");
+      throw Failure("Bad response format");
+    } on http.ClientException {
+      throw Failure("http ClientException");
+    } on TimeoutException{
+      throw Failure("Time Out Exception");
+    } on TypeError{
+      throw Failure('type Error');
+    }
+  }
+///*****************************************************************************/
+  Future<SinglePostModel> _getPostFromUrlTwo(String url) async {
+    final http.Response response = await http.get(Uri.parse(url), headers: {
+      'Content-Type': 'application/json',
+    }).timeout(Duration(seconds: 5));
+    if(response.statusCode==200){
+      return SinglePostModel.fromJson(jsonDecode(response.body));
+    }else{
+      throw ServerException();
     }
   }
 }
+
