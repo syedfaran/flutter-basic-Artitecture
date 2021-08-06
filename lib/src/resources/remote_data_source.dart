@@ -11,16 +11,18 @@ abstract class RemoteDataSource<T> {
 }
 
 class RemoteDataSourceImp extends RemoteDataSource<SinglePostModel> {
-  static const api = 'https://jsonplaceholder.typicode.com/posts/1';
+  static const api = 'https://jsonplaceholder.typicode.com/posts/2';
 
   @override
   Future<SinglePostModel>  getPost()async{
-    return _getPostFromUrl(api);
+    return _getPostFromUrlTwo(api);
+   // return _getPostFromUrl(api);
   }
 
   @override
   Future<SinglePostModel> searchPost(int number) {
-    return _getPostFromUrl('https://jsonplaceholder.typicode.com/posts/$number');
+   return _getPostFromUrl('https://jsonplaceholder.typicode.com/posts/$number');
+   // return _getPostFromUrl('https://jsonplaceholder.typicode.com/posts/$number');
   }
 
   Future<SinglePostModel> _getPostFromUrl(String url) async {

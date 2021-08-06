@@ -15,13 +15,18 @@ class PostSearchProvider with ChangeNotifier{
   late Either<Failure, SinglePost> _post;
   Either<Failure, SinglePost> get  post=>_post;
   void _setPost(Either<Failure, SinglePost> post) {
+
     _post = post;
     notifyListeners();
   }
 
   Future<void> getPost(int number)async{
     _setState(NotifierState.loading);
-    await _repo.getSearchPost(number).then((value) => _setPost(value));
+
+    await _repo.getSearchPost(number).then((value){
+      print('faran $value');
+      _setPost(value);
+    } );
     _setState(NotifierState.loaded);
   }
 }

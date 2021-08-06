@@ -21,12 +21,6 @@ class LocalDataSourceImp extends LocalDataSource {
   LocalDataSourceImp({required this.sharedPreferences});
 
   @override
-  Future<void> cachePost(SinglePostModel postModel) {
-    return sharedPreferences.setString(
-        CACHED_SINGLE_POST, json.encode(postModel.toJson()));
-  }
-
-  @override
   Future<SinglePostModel> getLastPost() {
     final jsonString = sharedPreferences.getString(CACHED_SINGLE_POST);
     if(jsonString != null){
@@ -36,4 +30,12 @@ class LocalDataSourceImp extends LocalDataSource {
     }
 
   }
+
+  @override
+  Future<void> cachePost(SinglePostModel postModel) {
+    return sharedPreferences.setString(
+        CACHED_SINGLE_POST, json.encode(postModel.toJson()));
+  }
+
+
 }

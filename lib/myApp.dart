@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: HomePage(),
       theme: AppTheme.light,
-      initialRoute:  AppRouting.secondPage,  // ->'/',
+      initialRoute:  AppRouting.initialRoute,  // ->'/',
       onGenerateRoute: RouteGenerator.generateRoute,
       navigatorObservers: [],
     );

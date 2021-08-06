@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  context.read<PostSearchProvider>().getPost(Random().nextInt(2));
+                  context.read<PostSearchProvider>().getPost(13);
                 },
                 child: Text('press me harder')),
             ElevatedButton(
