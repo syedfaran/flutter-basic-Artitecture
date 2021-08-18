@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                 child: Text('press me harder')),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, AppRouting.secondPage,);
+                  Navigator.pushNamed(context, AppRouting.secondPage);
                 },
                 child: Text('Page One')),
           ],

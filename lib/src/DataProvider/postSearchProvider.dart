@@ -4,7 +4,9 @@ import 'package:flutter_arti/src/repository/repository.dart';
 import '../shared.dart';
 
 class PostSearchProvider with ChangeNotifier{
-  final _repo = RepoImplementation();
+  //final _repo = RepoImplementation();
+  final RepoImplementation _repo;
+  PostSearchProvider(this._repo);
   NotifierState _state = NotifierState.initial;
   NotifierState get state => _state;
   void _setState(NotifierState state) {

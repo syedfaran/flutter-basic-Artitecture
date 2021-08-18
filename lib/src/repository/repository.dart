@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter_arti/src/models/singlePost.dart';
 import 'package:flutter_arti/src/resources/local_data_source.dart';
 import 'package:flutter_arti/src/resources/remote_data_source.dart';
@@ -15,8 +16,12 @@ abstract class Repository {
 }
 
 class RepoImplementation extends Repository {
-  final RemoteDataSourceImp _remote = RemoteDataSourceImp();
-
+  final RemoteDataSourceImp _remote;
+  final DataConnectionStatus _status;
+  final LocalDataSourceImp _local;
+  RepoImplementation(this._status, this._remote, this._local){
+    print(_status);
+  }
   @override
   Future<Either<Failure, SinglePost>> getSearchPost(int number)async {
 
@@ -36,9 +41,7 @@ class RepoImplementation extends Repository {
 
   @override
   Future<Either<Failure, SinglePost>> getSinglePost() {
-    return _getTrivia((){
-      return _remote.getPost();
-    });
+    return _getTrivia((){return _remote.getPost();});
     // return Task(() => _remote.getPost())
     //     .attempt()
     //     .map(
@@ -52,11 +55,13 @@ class RepoImplementation extends Repository {
 
   /// ****************************************************************************/
 
-  Future<Either<Failure, SinglePost>> _getTrivia(
-      _ConcreteOrRandomChooser getConcreteOrRandom) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    LocalDataSourceImp _local = LocalDataSourceImp(sharedPreferences: preferences);
-    if (true) {
+  Future<Either<Failure, SinglePost>> _getTrivia(_ConcreteOrRandomChooser getConcreteOrRandom) async {
+    // DataConnectionChecker checker = DataConnectionChecker();
+    // bool connection = true;
+    // await checker.hasConnection.then((value) {print(value);connection = value;});
+    // SharedPreferences preferences = await SharedPreferences.getInstance();
+    // LocalDataSourceImp _local = LocalDataSourceImp(sharedPreferences: preferences);
+    if (DataConnectionStatus.connected==_status) {
       try {
         final remoteTrivia = await getConcreteOrRandom();
         print('faran $remoteTrivia');

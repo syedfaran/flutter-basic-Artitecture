@@ -6,10 +6,10 @@ import 'package:flutter_arti/src/repository/repository.dart';
 import '../shared.dart';
 
 class PostProvider with ChangeNotifier{
-  PostProvider(){
+  final RepoImplementation _repo;
+  PostProvider(this._repo){
     getPost();
   }
-  final _repo = RepoImplementation();
   NotifierState _state = NotifierState.initial;
   NotifierState get state => _state;
   void _setState(NotifierState state) {
