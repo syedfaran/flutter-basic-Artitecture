@@ -10,9 +10,9 @@ class RouteGenerator {
 
     switch (settings.name) {
       case AppRouting.initialRoute:
-        return MaterialPageRoute(builder: (_) => HomePage());
+        return MaterialPageRoute(builder: (_) =>const HomePage());
       case AppRouting.secondPage:
-        return MaterialPageRoute(builder: (_) => FirstPage());
+        return MaterialPageRoute(builder: (_) => const FirstPage());
       //case '/third':
       // // Validation of correct data type
       //   if (args is String) {
